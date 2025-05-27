@@ -33,7 +33,20 @@ class CheckoutView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'BoringCommerce | Checkout'
         return context
-    
+
+
+
+class BlogDetailsView(TemplateView):
+    template_name = 'blog-details.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        categories = Category.objects.all()
+
+        context['title'] = 'BoringCommerce | Home'
+        context['categories'] = categories
+        return context
 
 class BlogView(TemplateView):
     template_name = 'blog.html'
@@ -43,6 +56,19 @@ class BlogView(TemplateView):
         context['title'] = 'BoringCommerce | Checkout'
         return context
     
+
+
+class ShopDetailsView(TemplateView):
+    template_name = 'shop=details.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        categories = Category.objects.all()
+
+        context['title'] = 'BoringCommerce | Home'
+        context['categories'] = categories
+        return context
 
 
 class ShopGridView(ListView):
@@ -116,4 +142,5 @@ class ShopingCartView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'BoringCommerce | Checkout'
         return context
+    
     
