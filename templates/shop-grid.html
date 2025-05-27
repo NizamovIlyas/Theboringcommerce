@@ -1,0 +1,216 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Shop Grid{% endblock title %}
+
+{% block content %}
+<!-- Hero Section Begin -->
+<section class="hero hero-normal">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="hero__categories">
+                    <div class="hero__categories__all">
+                        <i class="fa fa-bars"></i>
+                        <span>All departments</span>
+                    </div>
+                    <ul>
+                        {% for category in categories %}
+                            <li><a href="#">{{ category.name }}</a></li>
+                        {% empty %}
+                            <li><a href="#">No categories available</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="hero__search">
+                    <div class="hero__search__form">
+                        <form action="{% url 'common:shop-grid' %}" method="get">
+                            <div class="hero__search__categories">
+                                All Categories
+                                <span class="arrow_carrot-down"></span>
+                            </div>
+                            <input type="text" name="q" placeholder="What do you need?" value="{{ request.GET.q }}">
+                            <button type="submit" class="site-btn">SEARCH</button>
+                        </form>
+                    </div>
+                    <div class="hero__search__phone">
+                        <div class="hero__search__phone__icon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <div class="hero__search__phone__text">
+                            <h5>+65 11.188.888</h5>
+                            <span>support 24/7 time</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Hero Section End -->
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="{% static 'img/breadcrumb.jpg' %}">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>Organi Shop</h2>
+                    <div class="breadcrumb__option">
+                        <a href="{% url 'common:index' %}">Home</a>
+                        <span>Shop</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<!-- Product Section Begin -->
+<section class="product spad">
+    <div class="container">
+        <div class="row">
+            <!-- Sidebar Begin -->
+            <div class="col-lg-3 col-md-5">
+                <div class="sidebar">
+                    <form action="{% url 'common:shop-grid' %}" method="get">
+                        <div class="sidebar__item">
+                            <h4>Department</h4>
+                            <ul>
+                                {% for category in categories %}
+                                    <li><a href="#">{{ category.name }}</a></li>
+                                {% empty %}
+                                    <li><a href="#">No categories available</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                        <div class="sidebar__item">
+                            <h4>Price</h4>
+                            <div class="price-range-wrap">
+                                <div class="range-slider">
+                                    <div class="price-input">
+                                        <input type="text" id="minamount" name="min_price" value="{{ request.GET.min_price|default:min_price }}">
+                                        <input type="text" id="maxamount" name="max_price" value="{{ request.GET.max_price|default:max_price }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sidebar__item sidebar__item__color--option">
+                            <h4>Colors</h4>
+                            {% for color in colors %}
+                                <div class="sidebar__item__color sidebar__item__color--{{ color|lower }}">
+                                    <label for="color-{{ color|lower }}">
+                                        {{ color }}
+                                        <input type="checkbox" id="color-{{ color|lower }}" name="colors" value="{{ color }}" {% if color in selected_colors %}checked{% endif %}>
+                                    </label>
+                                </div>
+                            {% empty %}
+                                <p>No colors available</p>
+                            {% endfor %}
+                        </div>
+
+                        <div class="sidebar__item">
+                            <h4>Popular Size</h4>
+                            {% for size in sizes %}
+                                <div class="sidebar__item__size">
+                                    <label for="size-{{ size|lower }}">
+                                        {{ size }}
+                                        <input type="checkbox" id="size-{{ size|lower }}" name="sizes" value="{{ size }}" {% if size in selected_sizes %}checked{% endif %}>
+                                    </label>
+                                </div>
+                            {% empty %}
+                                <p>No sizes available</p>
+                            {% endfor %}
+                        </div>
+
+                        <div class="sidebar__item">
+                            <button type="submit" class="site-btn">Apply Filters</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- Sidebar End -->
+
+            <!-- Products Begin -->
+            <div class="col-lg-9 col-md-7">
+                <div class="filter__item">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-5">
+                            <form class="filter__sort" action="{% url 'common:shop-grid' %}" method="get">
+                                <span>Sort By</span>
+                                <select name="sort" onchange="this.form.submit()">
+                                    <option value="default" {% if request.GET.sort == 'default' %}selected{% endif %}>Default</option>
+                                    <option value="price_asc" {% if request.GET.sort == 'price_asc' %}selected{% endif %}>Price: Low to High</option>
+                                    <option value="price_desc" {% if request.GET.sort == 'price_desc' %}selected{% endif %}>Price: High to Low</option>
+                                </select>
+                                {% for key, value_list in request.GET.lists %}
+                                {% if key != "sort" %}
+                                    {% for value in value_list %}
+                                        <input type="hidden" name="{{ key }}" value="{{ value }}">
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                            
+                            </form>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <div class="filter__found">
+                                <h6><span>{{ products.paginator.count }}</span> Products found</h6>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-3">
+                            <div class="filter__option">
+                                <span class="icon_grid-2x2"></span>
+                                <span class="icon_ul"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    {% for product in products %}
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="product__item">
+                                <div class="product__item__pic set-bg" data-setbg="{{ product.image.url }}">
+                                    <ul class="product__item__pic__hover">
+                                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="product__item__text">
+                                    <h6><a href="#">{{ product.name }}</a></h6>
+                                    <h5>${{ product.price }}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <div class="col-lg-12">
+                            <p>No products found</p>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="product__pagination">
+                    {% if products.has_previous %}
+                        <a href="?page={{ products.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Previous</a>
+                    {% endif %}
+                    {% for num in products.paginator.page_range %}
+                        <a href="?page={{ num }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" {% if products.number == num %}class="active"{% endif %}>{{ num }}</a>
+                    {% endfor %}
+                    {% if products.has_next %}
+                        <a href="?page={{ products.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"><i class="fa fa-long-arrow-right"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- Products End -->
+        </div>
+    </div>
+</section>
+<!-- Product Section End -->
+{% endblock content %}
