@@ -3,4 +3,5 @@ from common.models import MediaFile
 
 class MediaFileDeleteView(generics.DestroyAPIView):
     queryset = MediaFile.objects.all()
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAdminUser]
+    lookup_field = "id"

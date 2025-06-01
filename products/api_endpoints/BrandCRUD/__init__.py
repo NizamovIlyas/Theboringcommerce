@@ -1,9 +1,9 @@
-from .BrandCreate import BrandCreateView, BrandCreateSerializer
-from .BrandGet import BrandListView, BrandListSerializer
+from .BrandCreate import *
+from .BrandList import *
 
 __all__ = [
     'BrandCreateView',
-    'BrandCreateSerializer',
+    '',
     'BrandListView',
-    'BrandListSerializer',
+    '',
 ]

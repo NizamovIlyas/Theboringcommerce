@@ -2,7 +2,7 @@ from django.urls import path
 from .api_endpoints import (
     ProductListView, ProductCreateView, ProductGetView,
     ProductUpdateView, ProductDeleteView,
-    BrandCreateView, BrandListView,
+    BrandCreateView,
     ColourCreateView, ColourListView,
     SizeCreateView, SizeListView,
     ProductVariantCreateView, ProductVariantDetailView,
@@ -19,7 +19,7 @@ urlpatterns = [
     path('products/<slug:slug>/delete/', ProductDeleteView.as_view(), name='product-delete'),
 
     # Brand
-    path('brands/', BrandListView.as_view(), name='brand-list'),
+    # path('brands/', BrandListView.as_view(), name='brand-list'),
     path('brands/create/', BrandCreateView.as_view(), name='brand-create'),
 
     # Colour

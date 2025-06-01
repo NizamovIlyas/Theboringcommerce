@@ -1,60 +1,58 @@
 from .ProductCRUD import (
-    ProductCreateView, ProductCreateSerializer,
+    ProductCreateView,
     ProductDeleteView,
-    ProductUpdateView, ProductUpdateSerializer,
-    ProductListView, ProductListSerializer,
-    ProductGetView, ProductGetSerializer,
-)
+    ProductUpdateView, 
+    ProductListView, 
+    ProductGetView,
+    )
 
 from .BrandCRUD import (
-    BrandCreateView, BrandCreateSerializer,
-    BrandListView, BrandListSerializer,
+    BrandCreateView,
+    # BrandListView,
 )
 
 from .ColourCRUD import (
-    ColourCreateView, ColourCreateSerializer,
-    ColourListView, ColourListSerializer,
+    ColourCreateView,
+    ColourListView
 )
 
 from .SizeCRUD import (
-    SizeCreateView, SizeCreateSerializer,
-    SizeListView, SizeListSerializer,
+    SizeCreateView,
+    SizeListView,
 )
 
 from .ProductVariantCRUD import (
-    ProductVariantCreateView, ProductVariantCreateSerializer,
-    ProductVariantDetailView, ProductVariantGetSerializer,
-    ProductVariantListView, ProductVariantListSerializerForList,
-    ProductVariantUpdateView, ProductVariantUpdateSerializer,
+    ProductVariantCreateView,
+    ProductVariantDetailView,
+    ProductVariantListView,
+    ProductVariantUpdateView,
     ProductVariantDeleteView,
     ProductVariantListByProductView,
 )
 
 __all__ = [
     # Product CRUD
-    'ProductCreateView', 'ProductCreateSerializer',
+    'ProductCreateView', 
     'ProductDeleteView',
-    'ProductUpdateView', 'ProductUpdateSerializer',
-    'ProductListView', 'ProductListSerializer',
-    'ProductGetView', 'ProductGetSerializer',
+    'ProductUpdateView',
+    'ProductListView', 
+    'ProductGetView',
 
     # Brand CRUD
-    'BrandCreateView', 'BrandCreateSerializer',
-    'BrandListView', 'BrandListSerializer',
-
+    'BrandCreateView', 
+    'BrandListView',
     # Colour CRUD
-    'ColourCreateView', 'ColourCreateSerializer',
-    'ColourListView', 'ColourListSerializer',
+    'ColourCreateView',
+    'ColourListView',
 
     # Size CRUD
-    'SizeCreateView', 'SizeCreateSerializer',
-    'SizeListView', 'SizeListSerializer',
-
+    'SizeCreateView',
+    'SizeListView', 
     # ProductVariant CRUD
-    'ProductVariantCreateView', 'ProductVariantCreateSerializer',
-    'ProductVariantDetailView', 'ProductVariantGetSerializer',
-    'ProductVariantListView', 'ProductVariantListSerializerForList',
-    'ProductVariantUpdateView', 'ProductVariantUpdateSerializer',
+    'ProductVariantCreateView',
+    'ProductVariantDetailView',
+    'ProductVariantListView',
+    'ProductVariantUpdateView',
     'ProductVariantDeleteView',
-    'ProductVariantListByProductView', 'ProductVariantListSerializerByProduct'
+    'ProductVariantListByProductView',
 ]
