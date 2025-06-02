@@ -12,4 +12,9 @@ def generate_password_reset_token(user):
     return signer.sign(user.pk)
 
 def verify_password_reset_token(token):
+    try:
+        unsigned = signer.unsign(token, max_age=TOKEN_EXPIRE_SECONDS)
+        return int(unsigned)
+    except (BadSignature, SignatureExpired):
+        return None
     

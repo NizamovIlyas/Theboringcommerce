@@ -11,6 +11,12 @@ urlpatterns = [
 
 
     # Profile
-    path('profile/update/'), ProfileUpdateAPIView.as_view(), name="profile-update",
-    path('profile/delete/'), ProfileDeleteAPIView.as_view(), name="profile-delete",
+    path('profile/update/', ProfileUpdateAPIView.as_view(), name="profile-update"),
+    path('profile/delete/', ProfileDeleteAPIView.as_view(), name="profile-delete"),
+
+    path('password-reset/request/', PasswordResetRequestAPIView.as_view(), name="password-reset"),
+    path('password-reset/confirm/', PasswordResetConfirmAPIView.as_view(), name="password-reset-confirm"),
+
+    path('register/', RegisterAPIView.as_view(), name='register'),
+    path('verify/', VerifyEmailAPIView.as_view(), name='verify-email'),
 ]
